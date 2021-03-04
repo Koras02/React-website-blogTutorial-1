@@ -1,7 +1,8 @@
-/* eslint-disable no-undef */
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+
+import { Link } from 'react-router-dom';
 import { Button } from './Buttons';
+import './Navbar.css';
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -12,51 +13,69 @@ function Navbar() {
 
     const showButton = () => {
         if (window.innerWidth <= 960) {
-            setButton(false)
+            setButton(false);
         } else {
-            setButton(true)
+            setButton(true);
         }
-    }
+    };
 
-    window.addEventListener('resize', showButton)
+    useEffect(() => {
+        showButton();
+    }, []);
+
+    window.addEventListener('resize', showButton);
 
     return (
         <>
-            <nav className="navbar">
-                <div className="navbar-container">
-                    <Link to="/" className="navbar-logo">
-                        TRVL <i className="fab fa-typo3" />
+            <nav className='navbar'>
+                <div className='navbar-container'>
+                    <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+                        TRVL
+                    <i class='fab fa-typo3' />
                     </Link>
-                    <div className="menu-icon" onClick={handleClick}>
+                    <div className='menu-icon' onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                     </div>
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                        <li classNmae="nav-item">
-                            <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                        <li className='nav-item'>
+                            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                                 Home
-                            </Link>
+                    </Link>
                         </li>
-                        <li classNmae="nav-item">
-                            <Link to="/services" className="nav-links" onClick={closeMobileMenu}>
+                        <li className='nav-item'>
+                            <Link
+                                to='/services'
+                                className='nav-links'
+                                onClick={closeMobileMenu}
+                            >
                                 Services
-                            </Link>
+                    </Link>
                         </li>
-                        <li classNmae="nav-item">
-                            <Link to="/Products" className="nav-links" onClick={closeMobileMenu}>
+                        <li className='nav-item'>
+                            <Link
+                                to='/products'
+                                className='nav-links'
+                                onClick={closeMobileMenu}
+                            >
                                 Products
-                            </Link>
+                    </Link>
                         </li>
-                        <li classNmae="nav-item">
-                            <Link to="/sign-up" className="nav-links-mobile" onClick={closeMobileMenu}>
+
+                        <li>
+                            <Link
+                                to='/sign-up'
+                                className='nav-links-mobile'
+                                onClick={closeMobileMenu}
+                            >
                                 Sign Up
-                            </Link>
+                    </Link>
                         </li>
                     </ul>
-                    {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
+                    {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
                 </div>
             </nav>
         </>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;
